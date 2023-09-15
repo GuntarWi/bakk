@@ -20,7 +20,7 @@ $(document).ready(function () {
       // Set up the Settings Event Listener.
       unregisterSettingsEventListener = tableau.extensions.settings.addEventListener(tableau.TableauEventType.SettingsChanged, (settingsEvent) => {
          // On settings change.
-       getSettings();
+      getSettings();
        drawChartJS();
       });
    }, function () { console.log('Error while Initializing: ' +err.toString()); });
@@ -66,7 +66,7 @@ function getSettings() {
    });
 }
 
-let currency = 5;
+ let currency = 5;
 
 function drawChartJS() {
 
@@ -91,19 +91,45 @@ function drawChartJS() {
      let PosY;
       let loopholder = 1;
      
-
-     
      function RouletteLayout(x,y,beteuro){
        
        const img = new Image()
+      const img2 = new Image();
        let chipH;
        let chipW;
        let TitleX = 18;
        let TitleY = -100;
        let ChipX,ChipY;
        let formattedBeteuro;
-       
 
+        
+      
+      if (typeof beteuro === 'undefined' && loopholder == 1) {        
+        
+        img.src = "https://cdn.glitch.global/3341a52d-151e-403d-984c-2d66d2af7659/WinGame.png?v=1693685686940"  
+        img2.src = "https://cdn.glitch.global/3341a52d-151e-403d-984c-2d66d2af7659/coin-2-2.png?v=1693867334819"
+          chipH  = 100;
+          chipW = 100;
+          TitleX = 0;
+          TitleY = 0;
+          ChipX = -40;
+          ChipY = -35;
+          loopholder += 1
+        //context.drawImage(img, x + ChipX , y + ChipY ,chipH,chipW);
+        
+          img2.onload = () => {
+            context.drawImage(img2, x - 5 , y - 10 ,45,45);
+            context.textAlign = "center";
+            context.fillStyle = "black";
+            let txt = beteuro.toFixed(2)
+            let txtWidth = context.measureText(txt).width
+            context.fillText(formattedBeteuro, x + TitleX , y + TitleY)
+      // Add any additional code you need for the second image
+          };
+        
+      } 
+       
+       if (typeof beteuro !== 'undefined') {
         chipH  = 45;
         chipW = 45;
         TitleX = 18;
@@ -111,30 +137,25 @@ function drawChartJS() {
         ChipX = -5;
         ChipY = -10;
         
-        if (beteuro >= 1000) {
-            if (beteuro % 1000 === 0) {
-                // If beteuro is an integer multiple of 1000 (e.g., 15000)
-                formattedBeteuro = (beteuro / 1000) + "K";
-            } else {
-                // If beteuro is not an integer multiple of 1000 (e.g., 15500)
-                formattedBeteuro = (beteuro / 1000).toFixed(beteuro % 1 === 0 ? 0 : 2) + "K";
-            }
+      if (beteuro >= 1000 && beteuro % 1000 === 0) {
+          // If beteuro is an integer multiple of 1000 (e.g., 15000)
+          formattedBeteuro = (beteuro / 1000) + "K";
+        } else if (beteuro >= 1000) {
+          // If beteuro is not an integer multiple of 1000 (e.g., 15500)
+          formattedBeteuro = (beteuro / 1000).toFixed(1) + "K";
         } else {
-            formattedBeteuro = beteuro.toFixed(0);
+          formattedBeteuro = beteuro.toFixed(0);
         }
-
-
         
-        
+        img.src = "https://cdn.glitch.global/3341a52d-151e-403d-984c-2d66d2af7659/coin-2-2.png?v=1693867334819"  
          
-      
-        img.src = "Assets/coin.png" 
+      }
+       
        
        
       //img.src = "Chip1.png"     
       img.onload = () => {
-       
-        context.drawImage(img, x + ChipX , y + ChipY ,chipH,chipW);        
+       context.drawImage(img, x + ChipX , y + ChipY ,chipH,chipW);  
         context.font = "bold 12px arial";
         context.textAlign = "center";
         context.fillStyle = "black";
@@ -145,56 +166,9 @@ function drawChartJS() {
       //  console.log(context.measureText(txt).width)
       
        }
-    
-     }
-     
-     function Chip(x,y,beteuro){
-       
-       const img = new Image()
-       let chipH;
-       let chipW;
-       let TitleX = 18;
-       let TitleY = -100;
-       let ChipX,ChipY;
-       let formattedBeteuro;
-       
-              
-        //img.src = "https://cdn.glitch.global/3341a52d-151e-403d-984c-2d66d2af7659/WinGame.png?v=1693685686940"  
-        
-          chipH  = 100;
-          chipW = 100;
-          TitleX = 0;
-          TitleY = 0;
-          ChipX = -40;
-          ChipY = -35;
-          loopholder += 1
-        //context.drawImage(img, x + ChipX , y + ChipY ,chipH,chipW);
-        
-        
-        
-    
-       
-       
-       img.src = "Chip1.png"  
-       
-      //img.src = "Chip1.png"     
-      if (loopholder == 2){
-        img.onload = () => {   
-        
-        context.drawImage(img, x + ChipX , y + ChipY ,chipH,chipW);        
-        context.font = "bold 12px arial";
-        context.textAlign = "center";
-        context.fillStyle = "black";
-        let txt = beteuro.toFixed(2)
-        let txtWidth = context.measureText(txt).width
-        context.fillText(x + TitleX , y + TitleY); 
 
-      //  console.log(context.measureText(txt).width)
-      
-       }
-      }
-    
      }
+    
 
 var str0 = 0,
 str32 = 1,
@@ -379,14 +353,12 @@ loopevent();
       RouletteLayout(750, 55,beteuro)
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_13") {
       data[12] += 1;
-      beteuro = worksheetData[i][currency].value
+      beteuro = worksheetData[i][5].value
       RouletteLayout(450, 255,beteuro)
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_36") {
-      
       data[13] += 1;
-      beteuro = worksheetData[i][currency].value;
+      beteuro += worksheetData[i][5].value;
       RouletteLayout(980, 55,beteuro)
-      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_11") {
       data[14] += 1;
       beteuro = worksheetData[i][currency].value;
@@ -1106,157 +1078,155 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
   }
 
   function Winner(i){
-     beteuro = worksheetData[i][currency].value;
     if (worksheetData[i][3].formattedValue == "0") {
-
-        Chip(60, 155,beteuro)   
+        RouletteLayout(60, 155)   
       } else if (worksheetData[i][3].formattedValue == "32") {        
-        Chip(910, 155,beteuro)
+        RouletteLayout(910, 155)
     
       } else if (worksheetData[i][3].formattedValue == "15") {
     
         
         
-        Chip(450, 55,beteuro)
+        RouletteLayout(450, 55)
     
       } else if (worksheetData[i][3].formattedValue == "19") {
         
         
-        Chip(603, 255,beteuro)
+        RouletteLayout(603, 255)
       } else if (worksheetData[i][3].formattedValue == "4") {
         
         
-        Chip(220, 255,beteuro)
+        RouletteLayout(220, 255)
       } else if (worksheetData[i][3].formattedValue == "21") {
         
         
         //console.log(beteuro)
         
-        Chip(604, 55,beteuro)
+        RouletteLayout(604, 55)
       } else if (worksheetData[i][3].formattedValue == "2") {
         
         
-        Chip(140, 155,beteuro)
+        RouletteLayout(140, 155)
       } else if (worksheetData[i][3].formattedValue == "25") {
         
         
-        Chip(755, 255,beteuro)
+        RouletteLayout(755, 255)
       } else if (worksheetData[i][3].formattedValue == "17") {
         
         
-        Chip(527, 155,beteuro)
+        RouletteLayout(527, 155)
       } else if (worksheetData[i][3].formattedValue == "34") {
         
         
-        Chip(985, 255,beteuro)
+        RouletteLayout(985, 255)
       } else if (worksheetData[i][3].formattedValue == "6") {
         
         
-        Chip(220, 55,beteuro)
+        RouletteLayout(220, 55)
       } else if (worksheetData[i][3].formattedValue == "27") {
         
         
-        Chip(757, 5,beteuro)
+        RouletteLayout(757, 55)
       } else if (worksheetData[i][3].formattedValue == "13") {
         
         beteuro = worksheetData[i][5].value
-        Chip(455, 255,beteuro)
+        RouletteLayout(455, 255)
       } else if (worksheetData[i][3].formattedValue == "36") {
         
         beteuro += worksheetData[i][5].value;
-        Chip(985, 55,beteuro)
+        RouletteLayout(985, 55)
       } else if (worksheetData[i][3].formattedValue == "11") {
         
         
-        Chip(370, 155,beteuro)
+        RouletteLayout(370, 155)
       } else if (worksheetData[i][3].formattedValue == "30") {
         
         
-        Chip(833, 55,beteuro)
+        RouletteLayout(833, 55)
       } else if (worksheetData[i][3].formattedValue == "8") {
         
         
         
-        Chip(294, 155,beteuro)
+        RouletteLayout(294, 155)
       } else if (worksheetData[i][3].formattedValue == "23") {
         
         
-        Chip(680, 155,beteuro)
+        RouletteLayout(680, 155)
       } else if (worksheetData[i][3].formattedValue == "10") {
         
         
-        Chip(370, 255,beteuro) 
+        RouletteLayout(370, 255) 
       } else if (worksheetData[i][3].formattedValue == "5") {
         
         
-        Chip(220, 155,beteuro)
+        RouletteLayout(220, 155)
       } else if (worksheetData[i][3].formattedValue == "24") {
         
         
-        Chip(680, 55,beteuro)
+        RouletteLayout(680, 55)
       } else if (worksheetData[i][3].formattedValue == "16") {
         
         
-        Chip(530, 255,beteuro)
+        RouletteLayout(530, 255)
       } else if (worksheetData[i][3].formattedValue == "33") {
         
         
-        Chip(910, 55,beteuro)
+        RouletteLayout(910, 55)
       } else if (worksheetData[i][3].formattedValue == "1") {
         
         
         
-        Chip(140, 255,beteuro)
+        RouletteLayout(140, 255)
       } else if (worksheetData[i][3].formattedValue == "20") {
         
         
-        Chip(604, 155,beteuro)
+        RouletteLayout(604, 155)
       } else if (worksheetData[i][3].formattedValue == "14") {
         
         
-        Chip(450, 155,beteuro)
+        RouletteLayout(450, 155)
       } else if (worksheetData[i][3].formattedValue == "31") {
         
         
-        Chip(910, 255,beteuro)
+        RouletteLayout(910, 255)
       } else if (worksheetData[i][3].formattedValue == "9") {
         
         
-        Chip(295, 55,beteuro)
+        RouletteLayout(295, 55)
       } else if (worksheetData[i][3].formattedValue == "22") {
         
         
-        Chip(680, 255,beteuro)
+        RouletteLayout(680, 255)
       } else if (worksheetData[i][3].formattedValue == "18") {
         
         
-        Chip(530, 55,beteuro)
+        RouletteLayout(530, 55)
       } else if (worksheetData[i][3].formattedValue == "29") {
         
         
-        Chip(835, 155,beteuro)
+        RouletteLayout(835, 155)
       } else if (worksheetData[i][3].formattedValue == "7") {
         
         
-        Chip(295, 255,beteuro)
+        RouletteLayout(295, 255)
       } else if (worksheetData[i][3].formattedValue == "28") {
         
         
-        Chip(833, 255,beteuro)
+        RouletteLayout(833, 255)
       } else if (worksheetData[i][3].formattedValue == "12") {
         
         
-        Chip(370, 55,beteuro)
+        RouletteLayout(370, 55)
       } else if (worksheetData[i][3].formattedValue == "35") {
         
         
-        Chip(985, 155,beteuro)
+        RouletteLayout(985, 155)
       } else if (worksheetData[i][3].formattedValue == "3") {
         
         
-        Chip(140, 55,beteuro)
+        RouletteLayout(140, 55)
       } else if (worksheetData[i][3].formattedValue == "26") {  
-        Chip(757, 155,beteuro)
+        RouletteLayout(757, 155)
       }
     }
 
@@ -1448,7 +1418,6 @@ $(".mode-switch-2").click(function () {
         
         
   });
-
  $(document).ready(function(){
   $(".mode-switch").click(function(){
 
