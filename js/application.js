@@ -111,15 +111,25 @@ function drawChartJS() {
         ChipX = -5;
         ChipY = -10;
         
-        if (beteuro >= 1000) {
+        if (beteuro >= 1000000) {
+            if (beteuro % 1000000 === 0) {
+                // If beteuro is an integer multiple of 1,000,000 (e.g., 15,000,000)
+                formattedBeteuro = (beteuro / 1000000) + "M";
+            } else {
+                // If beteuro is not an integer multiple of 1,000,000 (e.g., 15,500,000)
+                formattedBeteuro = (beteuro / 1000000).toFixed(beteuro % 1 === 0 ? 0 : 2) + "M";
+            }
+        } else if (beteuro >= 1000) {
             if (beteuro % 1000 === 0) {
-                // If beteuro is an integer multiple of 1000 (e.g., 15000)
+                // If beteuro is an integer multiple of 1,000 (e.g., 1,500,000)
                 formattedBeteuro = (beteuro / 1000) + "K";
             } else {
-                // If beteuro is not an integer multiple of 1000 (e.g., 15500)
+                // If beteuro is not an integer multiple of 1,000 (e.g., 1,550,000)
                 formattedBeteuro = (beteuro / 1000).toFixed(beteuro % 1 === 0 ? 0 : 2) + "K";
             }
-        } else {
+        } else if (beteuro <= 1){
+            formattedBeteuro = beteuro.toFixed(2);
+        }else {
             formattedBeteuro = beteuro.toFixed(0);
         }
 
@@ -128,7 +138,7 @@ function drawChartJS() {
         
          
       
-        img.src = "Assets/coin.png" 
+        img.src = "coin.png" 
        
        
       //img.src = "Chip1.png"     
@@ -175,7 +185,7 @@ function drawChartJS() {
     
        
        
-       img.src = "Chip1.png"  
+       img.src = "WinGame.png"  
        
       //img.src = "Chip1.png"     
       if (loopholder == 2){
@@ -391,92 +401,113 @@ loopevent();
       data[14] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(370, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_30") {
       beteuro = worksheetData[i][currency].value;
       data[15] += 1;
       RouletteLayout(830, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_8") {
       data[16] += 1;
-      beteuro = worksheetData[i][currency].value;
-      
+      beteuro = worksheetData[i][currency].value;     
       RouletteLayout(300, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_23") {
       data[17] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(680, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_10") {
       data[18] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(370, 255,beteuro) 
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_5") {
       data[19] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(220, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_24") {
       data[20] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(680, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_16") {
       data[21] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(530, 255,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_33") {
       data[22] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(910, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_1") {
       
       beteuro = worksheetData[i][currency].value;
       data[23] += 1;
       RouletteLayout(140, 255,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_20") {
       data[24] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(600, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_14") {
       data[25] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(450, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_31") {
       data[26] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(910, 255,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_9") {
       data[27] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(300, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_22") {
       data[28] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(680, 255,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_18") {
       data[29] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(530, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_29") {
       data[30] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(830, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_7") {
       data[31] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(290, 255,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_28") {
       data[32] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(830, 255,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_12") {
       data[33] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(370, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_35") {
       data[34] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(980, 155,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_3") {
       data[35] += 1;
       beteuro = worksheetData[i][currency].value;
       RouletteLayout(140, 55,beteuro)
+      
     } else if (worksheetData[i][BetPosition].formattedValue == "STRAIGHT_UP_26") {
       data[36] += 1;
       beteuro = worksheetData[i][currency].value;
@@ -1107,7 +1138,7 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
 
   function Winner(i){
      beteuro = worksheetData[i][currency].value;
-    if (worksheetData[i][3].formattedValue == "0") {
+      if (worksheetData[i][3].formattedValue == "0") {
 
         Chip(60, 155,beteuro)   
       } else if (worksheetData[i][3].formattedValue == "32") {        
@@ -1148,7 +1179,7 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
       } else if (worksheetData[i][3].formattedValue == "34") {
         
         
-        Chip(985, 255,beteuro)
+        Chip(987, 255,beteuro)
       } else if (worksheetData[i][3].formattedValue == "6") {
         
         
@@ -1156,11 +1187,11 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
       } else if (worksheetData[i][3].formattedValue == "27") {
         
         
-        Chip(757, 5,beteuro)
+        Chip(758,55,beteuro)
       } else if (worksheetData[i][3].formattedValue == "13") {
         
-        beteuro = worksheetData[i][5].value
-        Chip(455, 255,beteuro)
+       // beteuro = worksheetData[i][5].value
+        Chip(450, 255,beteuro)
       } else if (worksheetData[i][3].formattedValue == "36") {
         
         beteuro += worksheetData[i][5].value;
@@ -1168,7 +1199,7 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
       } else if (worksheetData[i][3].formattedValue == "11") {
         
         
-        Chip(370, 155,beteuro)
+        Chip(373, 155,beteuro)
       } else if (worksheetData[i][3].formattedValue == "30") {
         
         
@@ -1230,7 +1261,7 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
       } else if (worksheetData[i][3].formattedValue == "18") {
         
         
-        Chip(530, 55,beteuro)
+        Chip(527, 55,beteuro)
       } else if (worksheetData[i][3].formattedValue == "29") {
         
         
@@ -1314,7 +1345,14 @@ else if (worksheetData[i][BetPosition].formattedValue == "TRIO_0_TO_2"){
       if($(".container-2").hasClass("hide") && Sequential < 1){
     $('.idround').text('Game Round: ' + worksheetData[0][RoundID].formattedValue + " Straight-Up Bet Spread");
   }else if($(".container").hasClass("hide")){
-    $('.idround').text('Game Round: ' + worksheetData[0][RoundID].formattedValue + " Bet Spread");
+    if (currency === 5) {
+    $('.idround').text('Game Round: ' + worksheetData[0][RoundID].formattedValue + ' Bet Spread Native Currency');
+} else if (currency === 6) {
+    $('.idround').text('Game Round: ' + worksheetData[0][RoundID].formattedValue + ' Bet Spread Euro Currency');
+} else {
+    // Handle other currency values or add a default case here
+    $('.idround').text('Game Round: ' + worksheetData[0][RoundID].formattedValue + ' Bet Spread ');
+}
   }else if($(".container-2").hasClass("hide")  && Sequential > 1)
   $('.idround').text("Session Straight-Up Bet Spread");
   }
